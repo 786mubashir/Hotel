@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background: url('HOTEL.jpg') center/cover no-repeat;
             margin: 0;
             padding: 0;
             display: flex;
@@ -60,11 +60,39 @@
         input[type="checkbox"] {
             margin-right: 5px;
         }
+        .bill-container {
+    width: 100%;
+    border: 2px solid #333;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
 
-        #daysSelection {
-            margin-top: 20px;
-            text-align: center;
-        }
+.bill-container h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.bill-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.total {
+    margin-top: 15px;
+}
+
+.total-amount {
+    color: #ff5733; /* or your preferred color for total amount */
+    font-weight: bold;
+}
+
+         
     </style>
 </head>
 
@@ -88,53 +116,143 @@
             <h5>AC Room</h5>
         </div>
     </div>
-
-    <div id="daysSelection">
-        <h3>For How Many Days?</h3>
-        <label><input type="checkbox">1 Day</label>
-        <label><input type="checkbox">2 Days</label>
-        <label><input type="checkbox">3 Days</label>
-        <label><input type="checkbox">Other</label>
-    </div>
+    <div class="bill-container" id="billContainer"></div>
 
     <script>
-        var amount = 0;
-        var name = "";
+        var data = {
+            amount: [],
+            name: []
+        };
         const body = document.getElementById("body");
 
         function selectionOfRoom(room) {
             switch (room) {
                 case 1:
-                    amount = 7000;
-                    name = "Luxury Room";
+                    setData(7000, "Luxury Room");
                     break;
                 case 2:
-                    amount = 10000;
-                    name = "Suite Room";
+                    setData(10000, "Suite Room");
                     break;
                 case 3:
-                    amount = 3000;
-                    name = "Without AC Room";
+                    setData(3000, "Without AC Room");
                     break;
                 case 4:
-                    amount = 5000;
-                    name = "AC Room";
+                    setData(5000, "AC Room");
                     break;
             }
+            body.appendChild(daysSelectionDiv)
+
             body.innerHTML = '';
-            days();
+           days()
         }
 
-        function days() {
-            body.innerHTML = '<div id="daysSelection">' +
-                '<h3>For How Many Days?</h3>' +
-                '<label><input type="checkbox">1 Day</label>' +
-                '<label><input type="checkbox">2 Days</label>' +
-                '<label><input type="checkbox">3 Days</label>' +
-                '<label><input type="checkbox">Other</label>' +
-                '</div>';
+        function setData(amountValue, nameValue) {
+            data.amount[0] = amountValue;
+            data.name[0] = nameValue;
         }
-    </script>
+
+        const daysSelectionDiv = document.createElement('div');
+        daysSelectionDiv.id = 'daysSelection';
+
+        function days() {
+            daysSelectionDiv.innerHTML = `
+                <h3>For How Many Days?</h3>
+                <label>
+                    <input type="checkbox" onchange="NumberRoom(1)"> 1 Day
+                </label>
+                <label>
+                    <input type="checkbox" onchange="NumberRoom(2)"> 2 Days
+                </label>
+                <label>
+                    <input type="checkbox" onchange="NumberRoom(3)"> 3 Days
+                </label>
+                <label>
+                    <input type="checkbox" onchange="handleOther()"> Other
+                </label>
+            `;
+            body.appendChild(daysSelectionDiv)
+
+            
+        }
+
+        function NumberRoom(Days) {
+            body.innerHTML = '';
+            data.amount[1] = Days;
+            data.name[1] = "Days";
+            rooms();
+        }
+
+        function rooms() {
+            body.innerHTML = '';
+           
+            daysSelectionDiv.innerHTML = `
+                <h3>For How Many Rooms?</h3>
+                <label>
+                    <input type="checkbox" onchange="Bill(1)"> 1 Room
+                </label>
+                <label>
+                    <input type="checkbox" onchange="Bill(2)"> 2 Rooms
+                </label>
+                <label>
+                    <input type="checkbox" onchange="Bill(3)"> 3 Rooms
+                </label>
+                <label>
+                    <input type="checkbox" onchange="handleOther()"> Other
+                </label>
+                
+            `;
+            body.appendChild(daysSelectionDiv)
+   
+        
+        }
+
+        function Bill(Rooms) {
+            body.innerHTML = '';
+           
+            data.amount[2] = Rooms;
+            data.name[2] = "Rooms";
+            data.total = data.amount[0] * data.amount[1] * Rooms;
+            renderBillHTML();
+        }
+
+        function handleOther() {
+            // Add your logic for handling the "Other" option here
+        }
+        function renderBillHTML() {
+    // Set the HTML content of daysSelectionDiv
+    daysSelectionDiv.innerHTML = `
+        <div class="bill-container" style="width: 100%;" onclick="printBill()">
+            <h2>Your Bill</h2>
+            <div class="bill-item">
+                <span class="item-name">Room:</span>
+                <span class="item-details">${data.name[0]} - ${data.amount[0]}</span>
+            </div>
+            <div class="bill-item">
+                <span class="item-name">Days:</span>
+                <span class="item-details">${data.name[1]} - ${data.amount[1]}</span>
+            </div>
+            <div class="bill-item">
+                <span class="item-name">Rooms:</span>
+                <span class="item-details">${data.name[2]} - ${data.amount[2]}</span>
+            </div>
+            <div class="bill-item total">
+                <span class="item-name">Total:</span>
+                <span class="item-details total-amount">${data.total}</span>
+            </div>
+           
+        </div>`;
+
+    // Append daysSelectionDiv to the body
+    body.appendChild(daysSelectionDiv);
+}
+
+
+function printBill() {
+    // Open the browser's print dialog
+    window.print();
+}
+
+           </script>
 </body>
 
 </html>
