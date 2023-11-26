@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Apan Hotel</title>
+    <style>
+        /* Reset some default styles */
+        body,
+        h1,
+        h2,
+        p,
+        button,
+        ul,
+        li,
+        a {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: url('HOTEL.jpg') center/cover no-repeat;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Overlay for background image */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Container for content */
+        .content-container {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Heading Styles */
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Subheading Styles */
+        h2 {
+            color: #ffd700; /* Golden color */
+            margin-bottom: 30px;
+        }
+
+        /* Paragraph Styles */
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #ccc; /* Light gray color */
+        }
+
+        /* Button Styles */
+        button {
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #ff6f61; /* Coral color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #fff; /* Darker coral color on hover */
+            color: #ff6f61;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: rgba(255, 255, 255, 0.267); /* Semi-transparent white */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(9, 9, 9, 0.5);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px); /* Add a blur effect */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff; /* Dark gray color */
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #181616; /* Slightly darker on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="content-container">
+        <h1>Welcome to Apan Hotel</h1>
+        <h2 id="dynamicWord"></h2>
+        <p>Discover a world of comfort and luxury.</p>
+        <button onclick="window.location.href='Booking.html'">Book Now</button>
+    </div>
+
+    <!-- JavaScript for Dynamic Word -->
+    <script>
+        const dynamicWordElement = document.getElementById('dynamicWord');
+        const dynamicWordArray = ['Exquisite', 'Luxurious', 'Opulent'];
+        let currentIndex = 0;
+
+        function updateDynamicWord() {
+            dynamicWordElement.textContent = dynamicWordArray[currentIndex];
+            currentIndex = (currentIndex + 1) % dynamicWordArray.length;
+        }
+
+        updateDynamicWord();
+
+        setInterval(updateDynamicWord, 3000);
+    </script>
+</body>
+
+</html>

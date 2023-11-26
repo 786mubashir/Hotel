@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        #roomSelection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        div {
+            flex: 0 0 200px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        div:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+
+        h5 {
+            margin: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        #daysSelection {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <h3>Which Room Do You Want?</h3>
+    <div id="roomSelection">
+        <div onclick="selectionOfRoom(1)">
+            <img src="luxury.jpeg" alt="Luxury Room">
+            <h5>Luxury Room</h5>
+        </div>
+        <div onclick="selectionOfRoom(2)">
+            <img src="suite room.jpeg" alt="Suite Room">
+            <h5>Suite Room</h5>
+        </div>
+        <div onclick="selectionOfRoom(3)">
+            <img src="without ac.jpeg" alt="Without AC Room">
+            <h5>Without AC Room</h5>
+        </div>
+        <div onclick="selectionOfRoom(4)">
+            <img src="ac room.jpeg" alt="AC Room">
+            <h5>AC Room</h5>
+        </div>
+    </div>
+
+    <div id="daysSelection">
+        <h3>For How Many Days?</h3>
+        <label><input type="checkbox">1 Day</label>
+        <label><input type="checkbox">2 Days</label>
+        <label><input type="checkbox">3 Days</label>
+        <label><input type="checkbox">Other</label>
+    </div>
+
+    <script>
+        var amount = 0;
+        var name = "";
+        const body = document.getElementById("body");
+
+        function selectionOfRoom(room) {
+            switch (room) {
+                case 1:
+                    amount = 7000;
+                    name = "Luxury Room";
+                    break;
+                case 2:
+                    amount = 10000;
+                    name = "Suite Room";
+                    break;
+                case 3:
+                    amount = 3000;
+                    name = "Without AC Room";
+                    break;
+                case 4:
+                    amount = 5000;
+                    name = "AC Room";
+                    break;
+            }
+            body.innerHTML = '';
+            days();
+        }
+
+        function days() {
+            body.innerHTML = '<div id="daysSelection">' +
+                '<h3>For How Many Days?</h3>' +
+                '<label><input type="checkbox">1 Day</label>' +
+                '<label><input type="checkbox">2 Days</label>' +
+                '<label><input type="checkbox">3 Days</label>' +
+                '<label><input type="checkbox">Other</label>' +
+                '</div>';
+        }
+    </script>
+</body>
+
+</html>
