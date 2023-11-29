@@ -66,11 +66,13 @@
     padding: 20px;
     box-sizing: border-box;
     cursor: pointer;
+    display: none;
 }
 
 .bill-container h2 {
     margin-bottom: 15px;
     color: #333;
+   
 }
 
 .bill-item {
@@ -90,9 +92,7 @@
 .total-amount {
     color: #ff5733; /* or your preferred color for total amount */
     font-weight: bold;
-}
-
-         
+}     
     </style>
 </head>
 
@@ -112,7 +112,7 @@
             <h5>Without AC Room</h5>
         </div>
         <div onclick="selectionOfRoom(4)">
-            <img src="ac room.jpeg" alt="AC Room">
+            <img src="AC room.jpeg" alt="AC Room">
             <h5>AC Room</h5>
         </div>
     </div>
@@ -167,7 +167,7 @@
                     <input type="checkbox" onchange="NumberRoom(3)"> 3 Days
                 </label>
                 <label>
-                    <input type="checkbox" onchange="handleOther()"> Other
+                    <input type="checkbox" onchange="handleOtherDays()"> Other
                 </label>
             `;
             body.appendChild(daysSelectionDiv)
@@ -197,7 +197,7 @@
                     <input type="checkbox" onchange="Bill(3)"> 3 Rooms
                 </label>
                 <label>
-                    <input type="checkbox" onchange="handleOther()"> Other
+                    <input id="Other" type="checkbox" onchange="handleOther()"> Other
                 </label>
                 
             `;
@@ -216,12 +216,32 @@
         }
 
         function handleOther() {
-            // Add your logic for handling the "Other" option here
+            daysSelectionDiv.innerHTML=`
+            <h3>For How Many Rooms?</h3><label>
+                    <input type="Number" id = "Room"> Enter
+                </label>
+                <button onclick = "Bill(Room.value)">Next<button>`
+                body.appendChild(daysSelectionDiv)
+
+            
+            
+        }
+        function handleOtherDays() {
+            daysSelectionDiv.innerHTML=`
+            <label>
+                    <input type="Number" id = "Room"> Enter
+                </label>
+                <button onclick = "NumberRoom(Room.value)">Next<button>`
+                body.appendChild(daysSelectionDiv)
+
+            
+            
         }
         function renderBillHTML() {
-    // Set the HTML content of daysSelectionDiv
-    daysSelectionDiv.innerHTML = `
-        <div class="bill-container" style="width: 100%;" onclick="printBill()">
+    // Set the HTML content of billContainer
+    billContainer.style.display = "block";
+    document.getElementById("billContainer").innerHTML = `
+        <div class="bill-container">
             <h2>Your Bill</h2>
             <div class="bill-item">
                 <span class="item-name">Room:</span>
@@ -239,16 +259,14 @@
                 <span class="item-name">Total:</span>
                 <span class="item-details total-amount">${data.total}</span>
             </div>
-           
+            <button id="print" onclick="printBill()">Print</button>
         </div>`;
-
-    // Append daysSelectionDiv to the body
-    body.appendChild(daysSelectionDiv);
 }
 
 
 function printBill() {
     // Open the browser's print dialog
+
     window.print();
 }
 
