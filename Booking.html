@@ -29,6 +29,8 @@
             gap: 20px;
             justify-content: center;
             margin-top: 20px;
+            background-color: transparent;
+
         }
 
         div {
@@ -92,11 +94,94 @@
 .total-amount {
     color: #ff5733; /* or your preferred color for total amount */
     font-weight: bold;
-}     
+}
+#Bill {
+    max-width: 700px;
+    margin:  auto;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: auto; /* Adjust the height value as needed */
+}
+
+
+h2 {
+    color: #333;
+    margin: auto;
+}
+
+.bill-item {
+    margin-bottom: 10px;
+}
+
+.item-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.item-details {
+    color: #555;
+}
+
+.total {
+    margin-top: 20px;
+}
+
+.total-amount {
+    font-weight: bold;
+    color: #ff0000; /* Red color for emphasis */
+}
+nav {
+            background-color: rgba(255, 255, 255, 0.267); /* Semi-transparent white */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(9, 9, 9, 0.5);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px); /* Add a blur effect */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff; /* Dark gray color */
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #181616; /* Slightly darker on hover */
+        }
+
+
     </style>
 </head>
 
 <body id="body">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
     <h3>Which Room Do You Want?</h3>
     <div id="roomSelection">
         <div onclick="selectionOfRoom(1)">
@@ -216,34 +301,30 @@
         }
 
         function handleOther() {
-            daysSelectionDiv.innerHTML=`
-            <h3>For How Many Rooms?</h3><label>
-                    <input type="Number" id = "Room"> Enter
-                </label>
-                <button onclick = "Bill(Room.value)">Next<button>`
-                body.appendChild(daysSelectionDiv)
+    daysSelectionDiv.innerHTML = `
+        <h3>For How Many Rooms?</h3>
+        <label>
+            <input type="Number" id="Room"> Enter
+        </label>
+        <button onclick="Bill(document.getElementById('Room').value)">Next</button>`;
+    body.appendChild(daysSelectionDiv);
+}
 
-            
-            
-        }
-        function handleOtherDays() {
-            daysSelectionDiv.innerHTML=`
-            <label>
-                    <input type="Number" id = "Room"> Enter
-                </label>
-                <button onclick = "NumberRoom(Room.value)">Next<button>`
-                body.appendChild(daysSelectionDiv)
+function handleOtherDays() {
+    daysSelectionDiv.innerHTML = `
+        <label>
+            <input type="Number" id="Room"> Enter
+        </label>
+        <button onclick="NumberRoom(document.getElementById('Room').value)">Next</button>`;
+    body.appendChild(daysSelectionDiv);
+}
 
-            
-            
-        }
         function renderBillHTML() {
-    // Set the HTML content of billContainer
-    billContainer.style.display = "block";
-    document.getElementById("billContainer").innerHTML = `
-        <div class="bill-container">
-            <h2>Your Bill</h2>
-            <div class="bill-item">
+    // Set the HTML content of daysSelectionDiv
+    daysSelectionDiv.innerHTML = `
+        <div id = "Bill">
+            <h2>Your Bill </h2>
+            <div class="bill-item" >
                 <span class="item-name">Room:</span>
                 <span class="item-details">${data.name[0]} - ${data.amount[0]}</span>
             </div>
@@ -259,15 +340,21 @@
                 <span class="item-name">Total:</span>
                 <span class="item-details total-amount">${data.total}</span>
             </div>
-            <button id="print" onclick="printBill()">Print</button>
-        </div>`;
+           <button id = "print" onclick = "printBill()">print</button>
+        </div>
+        `
+        
+        ;
+
+    // Append daysSelectionDiv to the body
+    body.appendChild(daysSelectionDiv);
 }
 
 
 function printBill() {
     // Open the browser's print dialog
-
     window.print();
+
 }
 
            </script>
